@@ -10,8 +10,8 @@ public class PathsObtainer {
 	private FileInputStream fileInputStream;
 	private  String errorinFile;
 
-	protected String getExcelPath(){
-		File file = getPathForFile();
+	protected String getMatrixPath(){
+		File file = getPathsFromPropertiesFile();
 		try{
 			fileInputStream = new FileInputStream(file.getAbsolutePath() + "/Paths.properties");
 			properties = new Properties(System.getProperties());
@@ -25,7 +25,7 @@ public class PathsObtainer {
 	 * @return - This method returns the path for the iOS capabilities 
 	 */
 	public  String getIosCapabilitiesPathFile() {
-		File file = getPathForFile();
+		File file = getPathsFromPropertiesFile();
 		try {
 			fileInputStream = new FileInputStream(file.getAbsolutePath() + "/Paths.properties");
 			properties = new Properties(System.getProperties());
@@ -40,7 +40,7 @@ public class PathsObtainer {
 	 */
 	public  String getAndroidCapabilitiesPathFile() {
 		try {
-			File file = getPathForFile();
+			File file = getPathsFromPropertiesFile();
 			fileInputStream = new FileInputStream(file);
 			properties = new Properties(System.getProperties());
 			properties.load(fileInputStream);
@@ -50,8 +50,8 @@ public class PathsObtainer {
 		return properties.getProperty("iOSCapabilitiesFile");
 	}
 	
-	private File getPathForFile() {
-		File srcFolder = new File("src/utilities");
+	protected File getPathsFromPropertiesFile() {
+		File srcFolder = new File("src/main/java/utilities");
 		return srcFolder;
 	}
 

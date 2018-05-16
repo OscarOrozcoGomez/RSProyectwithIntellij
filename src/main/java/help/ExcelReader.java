@@ -14,13 +14,11 @@ public class ExcelReader extends PathsObtainer{
 	private String excelMatrixSheetName = "Traceability Matrix";
 	private XSSFCell cell;
 	private String errorinFile;
-	/***
-	 * @param excelBook, This parameter stores Excel book value
-	 */
+
 	public void getBookName() {
 		try {
-			excelBook = new XSSFWorkbook(getExcelPath());
-			String data = getSheetByName(excelMatrixSheetName).getRow(0).getCell(0).getStringCellValue(); 
+			excelBook = new XSSFWorkbook(getPathsFromPropertiesFile() + getMatrixPath());
+			String data = getSheetByName(excelMatrixSheetName).getRow(0).getCell(0).getStringCellValue();
 			excelBook.getNumberOfSheets();
 			//setExcelBook(new XSSFWorkbook(getPropertiesFile()));
 		} catch (IOException e) {

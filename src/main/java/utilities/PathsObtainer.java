@@ -49,10 +49,26 @@ public class PathsObtainer {
 		}
 		return properties.getProperty("iOSCapabilitiesFile");
 	}
-	
+
 	protected File getPathsFromPropertiesFile() {
 		File srcFolder = new File("src/main/java/utilities");
 		return srcFolder;
 	}
+	protected String getMatrixPath(String typeSuite){
+		File file = getPathsFromPropertiesFile();
+		try{
+			fileInputStream = new FileInputStream(file.getAbsolutePath() + "/Paths.properties");
+			properties = new Properties(System.getProperties());
+			properties.load(fileInputStream);
+		}catch(IOException err){
+			errorinFile = err.getMessage();
+		}
+		String no = file.getAbsolutePath() + properties.getProperty(typeSuite);
+		return file.getAbsolutePath() + properties.getProperty(typeSuite);
+	}
 
+	public static void main(String[] args) {
+		PathsObtainer no = new PathsObtainer();
+		String nono = no.getMatrixPath("AdminMatrix");
+	}
 }

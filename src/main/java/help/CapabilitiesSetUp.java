@@ -3,6 +3,8 @@ package help;
 import java.io.FileInputStream;
 import java.util.Properties;
 
+import io.appium.java_client.remote.AutomationName;
+import io.appium.java_client.remote.MobileCapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import utilities.PathsObtainer;
@@ -19,7 +21,6 @@ public class CapabilitiesSetUp extends PathsObtainer {
 //This class is to set up the capabilities needed
 	protected void iOSCapabilities(String devName, String platfName, String autoName, String appPath){
 		try {
-			capa = new DesiredCapabilities();
 			file = new FileInputStream(getIosCapabilitiesPathFile());
 			//file = new FileInputStream(getIosCapabilitiesPathFile());
 			propertiesFile = new Properties(System.getProperties());
@@ -32,7 +33,7 @@ public class CapabilitiesSetUp extends PathsObtainer {
 			errorinFile = e.getMessage();
 		}
 	}
-	protected void androidCapabilities(String devName, String platfName, String autoName, String appPath){
+	protected DesiredCapabilities androidCapabilities(String devName, String platfName, String autoName, String appPath){
 		try {
 			capa = new DesiredCapabilities();
 			file = new FileInputStream(getIosCapabilitiesPathFile());
@@ -45,10 +46,16 @@ public class CapabilitiesSetUp extends PathsObtainer {
 		} catch (Exception e) {
 			errorinFile = e.getMessage();
 		}
+		return capa;
 	}
-	public static void main(String[] args) {
-
-		CapabilitiesSetUp nono = new CapabilitiesSetUp();
-		nono.iOSCapabilities(devName, platfName, autoName, appPath);
+	public void iOSCapabilitiess(DesiredCapabilities caps){
+		try {
+			caps.setCapability(MobileCapabilityType.DEVICE_NAME, this.devName);
+			caps.setCapability(MobileCapabilityType.PLATFORM_NAME, this.platfName);
+			caps.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.IOS_XCUI_TEST);
+			caps.setCapability(MobileCapabilityType.APP, this.appPath);
+		} catch (Exception e) {
+			errorinFile = e.getMessage();
+		}
 	}
 }

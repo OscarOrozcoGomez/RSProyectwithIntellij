@@ -1,6 +1,9 @@
 package help;
+
+import java.net.MalformedURLException;
 import java.net.URL;
 
+import io.appium.java_client.android.AndroidElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -10,45 +13,28 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
-public class WebDriverFactory extends CapabilitiesSetUp{
-	WebDriver driver;
-	IOSDriver<IOSElement> mobileDriver;
-	String exception;
-	String step;
-	public WebDriver setDriver(String typeOfDriver){
-		try {
-			switch (typeOfDriver) {
-			case "FireFox":
-				driver = new FirefoxDriver();
-				break;
-			case "Chrome":
-				driver = new ChromeDriver();
-				break;
-			case "IE":
-				driver = new InternetExplorerDriver();
-				break;
-//			case "Appium":
-//				driver = new AppiumDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), iOSCapabilities(DesiredCapabilitie{""}));
-//				break;
-				//		case "Android":
-				//			driver = new AndroidDriver();
-				//			break;
-				//		case "iOS":
-				//			driver = new iOSDri;
-				//			break;
-			default:
-				driver = null;
-				break;
-			}
-		} 
-		catch(WebDriverException err){
-			exception = err.getMessage();
-			step = "Web Driver not initialized";
-		}
-		finally {
-			step = "Web Driver initialized";
-		}
-		return driver;
-	}
+public class WebDriverFactory extends CapabilitiesSetUp {
+    IOSDriver<IOSElement> iOSDriver;
+    AndroidDriver<AndroidElement> androidDriver;
+    String exception;
+    String step;
+
+    public AndroidDriver<AndroidElement> getAndroidDriver(DesiredCapabilities caps) {
+        try {
+            androidDriver = new AndroidDriver<AndroidElement>(new URL("http://127.0.0.1:4723/wd/hub"), caps);
+        }catch (MalformedURLException e) {
+
+        }
+        return androidDriver;
+    }
+    public IOSDriver<IOSElement> getiOSDriver(DesiredCapabilities caps) {
+        try {
+            iOSDriver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), caps);
+        } catch (MalformedURLException e) {
+
+        }
+        return iOSDriver;
+    }
 }

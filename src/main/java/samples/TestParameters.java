@@ -15,7 +15,7 @@ public class TestParameters{
         d.setCapability(MobileCapabilityType.APP, "/Users/oscar orozco/Library/Developer/Xcode/DerivedData/Rousesales-cwuiotcndhvhofaaofegozkoskdb/Build/Products/QA-iphonesimulator/Rouse Sales.app");
         IOSDriver<IOSElement> driver = new IOSDriver<> (new URL("http://127.0.0.1:4723/wd/hub"), d);
         driver.quit();
-        
+
     }
 
 }

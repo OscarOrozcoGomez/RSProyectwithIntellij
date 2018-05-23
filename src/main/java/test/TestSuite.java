@@ -14,15 +14,17 @@ import java.io.IOException;
 
 public class TestSuite {
     String globalValue;
-    private static CapabilitiesSetUp capabilities;
-    DesiredCapabilities caps;
+    private CapabilitiesSetUp capabilities;
+    DesiredCapabilities caps = new DesiredCapabilities();
     @Test(dataProvider = "AdminFlows")
     public void run(String platformName, String tcName, String sheetName, String userName, String password){
     //We need to start with the SetUp annotation
         switch(platformName){
-            case "Android": capabilities.getAndroidCapabilitiesPathFile();
+            case "iOS": capabilities.getiOSCapabilitiess();
             break;
-            case "iOS": capabilities.iOSCapabilitiess(caps);
+            /*case "Android":
+            break;*/
+
 
         }
 

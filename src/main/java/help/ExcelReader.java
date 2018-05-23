@@ -43,17 +43,13 @@ public class ExcelReader extends PathsObtainer{
 			row = sheet.getRow(0);
 
 			int colCount = row.getLastCellNum();
-			System.out.println("Column Count :- " + colCount);
 
 			int rowCount = sheet.getLastRowNum() + 1;
-			System.out.println("Row Count :- " + rowCount);
 			data = new String[rowCount][colCount];
 			for (int i = 0; i <= sheet.getLastRowNum() ; i++){
 				for (int j = 0; j <= row.getLastCellNum() - 1; j++){
-					System.out.print(getCellDataByIndex(excelSuiteName, sheetName, i,j) + "//");
 					data[i][j] = getCellDataByIndex(excelSuiteName, sheetName, i,j);
 				}
-				System.out.println("");
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

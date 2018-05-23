@@ -19,7 +19,7 @@ public class CapabilitiesSetUp extends PathsObtainer {
 	static String autoName;
 	static String appPath;
 //This class is to set up the capabilities needed
-	protected void iOSCapabilities(String devName, String platfName, String autoName, String appPath){
+	protected void setiOSCapabilities(String devName, String platfName, String appPath){
 		try {
 			file = new FileInputStream(getIosCapabilitiesPathFile());
 			//file = new FileInputStream(getIosCapabilitiesPathFile());
@@ -27,7 +27,7 @@ public class CapabilitiesSetUp extends PathsObtainer {
 			propertiesFile.load(file);
 			devName = propertiesFile.getProperty("DEVICE_NAME");
 			platfName = propertiesFile.getProperty("PLATFORM_NAME");
-			autoName = propertiesFile.getProperty("AUTOMATION_NAME");
+			//autoName = propertiesFile.getProperty("AUTOMATION_NAME");
 			appPath = propertiesFile.getProperty("Root_app_path");
 		} catch (Exception e) {
 			errorinFile = e.getMessage();
@@ -48,14 +48,21 @@ public class CapabilitiesSetUp extends PathsObtainer {
 		}
 		return capa;
 	}
-	public void iOSCapabilitiess(DesiredCapabilities caps){
+	public DesiredCapabilities getiOSCapabilitiess(){
 		try {
-			caps.setCapability(MobileCapabilityType.DEVICE_NAME, this.devName);
-			caps.setCapability(MobileCapabilityType.PLATFORM_NAME, this.platfName);
-			caps.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.IOS_XCUI_TEST);
-			caps.setCapability(MobileCapabilityType.APP, this.appPath);
+			this.setiOSCapabilities(devName, platfName, appPath);
+			capa.setCapability(MobileCapabilityType.DEVICE_NAME, this.devName);
+			capa.setCapability(MobileCapabilityType.PLATFORM_NAME, this.platfName);
+			capa.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.IOS_XCUI_TEST);
+			capa.setCapability(MobileCapabilityType.APP, this.appPath);
 		} catch (Exception e) {
 			errorinFile = e.getMessage();
 		}
+		return capa;
+	}
+
+	public static void main(String[] args) {
+		CapabilitiesSetUp no = new CapabilitiesSetUp();
+		no.getiOSCapabilitiess();
 	}
 }

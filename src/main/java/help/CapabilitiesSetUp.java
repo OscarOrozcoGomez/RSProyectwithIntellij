@@ -10,59 +10,79 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import utilities.PathsObtainer;
 
 public class CapabilitiesSetUp extends PathsObtainer {
-	private DesiredCapabilities capa;
+	private DesiredCapabilities capa = new DesiredCapabilities();
 	private Properties propertiesFile;
 	private FileInputStream file;
 	private String errorinFile;
-	static String devName;
-	static String platfName;
-	static String autoName;
-	static String appPath;
+	private String devName;
+    private String platfName;
+    private String autoName;
+    private String appPath;
 //This class is to set up the capabilities needed
-	protected void setiOSCapabilities(String devName, String platfName, String appPath){
+	protected void setiOSCapabilities(){
 		try {
 			file = new FileInputStream(getIosCapabilitiesPathFile());
-			//file = new FileInputStream(getIosCapabilitiesPathFile());
 			propertiesFile = new Properties(System.getProperties());
 			propertiesFile.load(file);
-			devName = propertiesFile.getProperty("DEVICE_NAME");
-			platfName = propertiesFile.getProperty("PLATFORM_NAME");
-			//autoName = propertiesFile.getProperty("AUTOMATION_NAME");
-			appPath = propertiesFile.getProperty("Root_app_path");
+			this.devName = propertiesFile.getProperty("DEVICE_NAME");
+			this.platfName = propertiesFile.getProperty("PLATFORM_NAME");
+			this.appPath = propertiesFile.getProperty("Root_app_path");
 		} catch (Exception e) {
 			errorinFile = e.getMessage();
 		}
 	}
-	protected DesiredCapabilities androidCapabilities(String devName, String platfName, String autoName, String appPath){
+	protected void setAndroidCapabilities(){
 		try {
-			capa = new DesiredCapabilities();
-			file = new FileInputStream(getIosCapabilitiesPathFile());
+			file = new FileInputStream(getAndroidCapabilitiesPathFile());
 			propertiesFile = new Properties(System.getProperties());
 			propertiesFile.load(file);
-			devName = propertiesFile.getProperty("DEVICE_NAME");
-			platfName = propertiesFile.getProperty("PLATFORM_NAME");
-			autoName = propertiesFile.getProperty("AUTOMATION_NAME");
-			appPath = propertiesFile.getProperty("Root_app_path");
+			this.devName = propertiesFile.getProperty("DEVICE_NAME");
+			this.appPath = propertiesFile.getProperty("App_path");
 		} catch (Exception e) {
 			errorinFile = e.getMessage();
 		}
-		return capa;
 	}
 	public DesiredCapabilities getiOSCapabilitiess(){
 		try {
-			this.setiOSCapabilities(devName, platfName, appPath);
-			capa.setCapability(MobileCapabilityType.DEVICE_NAME, this.devName);
-			capa.setCapability(MobileCapabilityType.PLATFORM_NAME, this.platfName);
+			setiOSCapabilities();
+			capa.setCapability(MobileCapabilityType.DEVICE_NAME, devName);
+			capa.setCapability(MobileCapabilityType.PLATFORM_NAME, platfName);
 			capa.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.IOS_XCUI_TEST);
-			capa.setCapability(MobileCapabilityType.APP, this.appPath);
+			capa.setCapability(MobileCapabilityType.APP, appPath);
 		} catch (Exception e) {
 			errorinFile = e.getMessage();
 		}
-		return capa;
+        return capa;
 	}
+	public DesiredCapabilities getAndroidCapabilities(){
+		try {
+			setAndroidCapabilities();
+			capa.setCapability(MobileCapabilityType.DEVICE_NAME, devName);
+			capa.setCapability(MobileCapabilityType.APP, appPath);
+		} catch (NullPointerException e){
+            errorinFile = e.getMessage();
+        }
+        return capa;
+	}
+
+	public DesiredCapabilities setUpCapabilirties(String platform){
+		/*if (platform.equalsIgnoreCase("Android")){
+            getAndroidCapabilities();
+		}else if(platform.equalsIgnoreCase("iOS")) {
+            getiOSCapabilitiess();
+		}
+		else{
+
+        }*/
+		switch (platform){
+            case "iOS": return  getiOSCapabilitiess();
+            case "Android": return getAndroidCapabilities();
+            default: return null;
+        }
+    }
 
 	public static void main(String[] args) {
 		CapabilitiesSetUp no = new CapabilitiesSetUp();
-		no.getiOSCapabilitiess();
+		no.getAndroidCapabilities();
 	}
 }

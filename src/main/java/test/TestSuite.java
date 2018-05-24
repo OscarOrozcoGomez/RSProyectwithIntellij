@@ -3,6 +3,7 @@ package test;
 import com.relevantcodes.extentreports.LogStatus;
 import help.CapabilitiesSetUp;
 import help.ExcelReader;
+import help.WebDriverFactory;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -14,19 +15,14 @@ import java.io.IOException;
 
 public class TestSuite {
     String globalValue;
-    private CapabilitiesSetUp capabilities;
+    CapabilitiesSetUp capabilities = new CapabilitiesSetUp();
     DesiredCapabilities caps = new DesiredCapabilities();
+    WebDriverFactory driver = new WebDriverFactory();
     @Test(dataProvider = "AdminFlows")
     public void run(String platformName, String tcName, String sheetName, String userName, String password){
     //We need to start with the SetUp annotation
-        switch(platformName){
-            case "iOS": capabilities.getiOSCapabilitiess();
-            break;
-            /*case "Android":
-            break;*/
-
-
-        }
+        caps = capabilities.setUpCapabilirties(platformName);
+        driver.initializeMobileDriver(platformName, caps);
 
     }
     @DataProvider(name = "AdminFlows")

@@ -36,18 +36,18 @@ public class PathsObtainer {
 		return file.getAbsolutePath() + properties.getProperty("iOSCapabilitiesFile");
 	}
 	/***
-	 * @return - This method returns the path for the iOS capabilities 
+	 * @return - This method returns the path for the Android capabilities
 	 */
-	public  String getAndroidCapabilitiesPathFile() {
+	public String getAndroidCapabilitiesPathFile() {
+		File file = getPathsFromPropertiesFile();
 		try {
-			File file = getPathsFromPropertiesFile();
-			fileInputStream = new FileInputStream(file);
+			fileInputStream = new FileInputStream(file.getAbsolutePath() + "/Paths.properties");
 			properties = new Properties(System.getProperties());
 			properties.load(fileInputStream);
 		} catch (Exception e) {
 			errorinFile = e.getMessage();
 		}
-		return properties.getProperty("iOSCapabilitiesFile");
+		return file.getAbsolutePath() + properties.getProperty("androidCapabilitiesFile");
 	}
 
 	protected File getPathsFromPropertiesFile() {
@@ -65,10 +65,5 @@ public class PathsObtainer {
 		}
 		String no = file.getAbsolutePath() + properties.getProperty(typeSuite);
 		return file.getAbsolutePath() + properties.getProperty(typeSuite);
-	}
-
-	public static void main(String[] args) {
-		PathsObtainer no = new PathsObtainer();
-		String nono = no.getMatrixPath("AdminMatrix");
 	}
 }

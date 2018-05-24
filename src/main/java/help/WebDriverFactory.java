@@ -21,20 +21,25 @@ public class WebDriverFactory extends CapabilitiesSetUp {
     String exception;
     String step;
 
-    public AndroidDriver<AndroidElement> getAndroidDriver(DesiredCapabilities caps) {
+    private void getAndroidDriver(DesiredCapabilities caps) {
         try {
             androidDriver = new AndroidDriver<AndroidElement>(new URL("http://127.0.0.1:4723/wd/hub"), caps);
         }catch (MalformedURLException e) {
 
         }
-        return androidDriver;
     }
-    public IOSDriver<IOSElement> getiOSDriver(DesiredCapabilities caps) {
+    private void getiOSDriver(DesiredCapabilities caps) {
         try {
             iOSDriver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), caps);
         } catch (MalformedURLException e) {
 
         }
-        return iOSDriver;
+    }
+    public void initializeMobileDriver(String typeOfDriver, DesiredCapabilities caps){
+        if (typeOfDriver.equalsIgnoreCase("iOS")){
+            getiOSDriver(caps);
+        }else if (typeOfDriver.equalsIgnoreCase("Android")){
+            getAndroidDriver(caps);
+        }
     }
 }

@@ -20,7 +20,7 @@ public class TestSuite {
     WebDriverFactory driver = new WebDriverFactory();
     @Test(dataProvider = "AdminFlows")
     public void run(String platformName, String tcName, String sheetName, String userName, String password){
-    //We need to start with the SetUp annotation
+    //We need to start with the SetUp annotations
         caps = capabilities.setUpCapabilirties(platformName);
         driver.initializeMobileDriver(platformName, caps);
 

@@ -1,14 +1,11 @@
 package test;
 
-import com.relevantcodes.extentreports.LogStatus;
 import help.CapabilitiesSetUp;
 import help.ExcelReader;
 import help.WebDriverFactory;
 import io.appium.java_client.AppiumDriver;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 

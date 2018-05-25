@@ -15,31 +15,21 @@ import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-public class WebDriverFactory extends CapabilitiesSetUp {
-    IOSDriver<IOSElement> iOSDriver;
-    AndroidDriver<AndroidElement> androidDriver;
+public class WebDriverFactory {
     String exception;
-    String step;
-
-    private void getAndroidDriver(DesiredCapabilities caps) {
+    public AppiumDriver getDriver(DesiredCapabilities caps, String typeOfChannel) {
         try {
-            androidDriver = new AndroidDriver<AndroidElement>(new URL("http://127.0.0.1:4723/wd/hub"), caps);
-        }catch (MalformedURLException e) {
+            switch(typeOfChannel){
+                case "iOS": AppiumDriver<IOSElement> iOSdriver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), caps);
+                    return iOSdriver;
 
-        }
-    }
-    private void getiOSDriver(DesiredCapabilities caps) {
-        try {
-            iOSDriver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), caps);
+                case "Android": AppiumDriver<AndroidElement> AndroidDriver = new AndroidDriver<AndroidElement>(new URL("http://127.0.0.1:4723/wd/hub"), caps);
+                    return AndroidDriver;
+                default: return null;
+            }
         } catch (MalformedURLException e) {
-
+            exception = e.getMessage();
         }
-    }
-    public void initializeMobileDriver(String typeOfDriver, DesiredCapabilities caps){
-        if (typeOfDriver.equalsIgnoreCase("iOS")){
-            getiOSDriver(caps);
-        }else if (typeOfDriver.equalsIgnoreCase("Android")){
-            getAndroidDriver(caps);
-        }
+        return null;
     }
 }

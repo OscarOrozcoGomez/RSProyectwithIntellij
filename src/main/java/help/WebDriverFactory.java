@@ -12,7 +12,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class WebDriverFactory {
     String exception;
-    private AppiumDriver getDriver(DesiredCapabilities caps, String typeOfChannel) {
+    public AppiumDriver getDriver(DesiredCapabilities caps, String typeOfChannel) {
         try {
             switch(typeOfChannel){
                 case "iOS": AppiumDriver<IOSElement> iOSdriver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), caps);

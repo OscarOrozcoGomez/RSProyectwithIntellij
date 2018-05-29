@@ -17,6 +17,7 @@ public class TestSuite {
     DesiredCapabilities caps = new DesiredCapabilities();
     AppiumDriver appiumDriver;
     WebDriverFactory driverFactory = new WebDriverFactory();
+    ExcelReader no;
     @Test(dataProvider = "AdminFlows")
     public void run(String platformName, String tcName, String sheetName, String userName, String password){
     //We need to start with the SetUp annotations
@@ -27,7 +28,7 @@ public class TestSuite {
     @DataProvider(name = "AdminFlows")
     public Object[][] dataFeeder() throws IOException, InvalidFormatException {
         //This method will read the admin suite
-        ExcelReader no = new ExcelReader();
+        no = new ExcelReader();
         return no.gettingMatrixValues("AdminMatrix", "Matrix");
     }
 }

@@ -23,7 +23,6 @@ public class TestSuite {
         caps = capabilities.setUpCapabilirties(platformName);
         appiumDriver = driverFactory.getDriver(caps, platformName);
         
-
     }
     @DataProvider(name = "AdminFlows")
     public Object[][] dataFeeder() throws IOException, InvalidFormatException {

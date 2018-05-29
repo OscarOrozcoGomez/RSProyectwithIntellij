@@ -19,12 +19,16 @@ public class TestSuite {
     WebDriverFactory driverFactory = new WebDriverFactory();
     ExcelReader no;
     @Test(dataProvider = "AdminFlows")
-    public void run(String platformName, String tcName, String sheetName, String userName, String password){
+    public void run(String platformName, String tcName, String excelSuiteFileName, String sheetName){
     //We need to start with the SetUp annotations
         caps = capabilities.setUpCapabilirties(platformName);
         appiumDriver = driverFactory.getDriver(caps, platformName);
+        if (appiumDriver != null){
+            no.stepsReader(no.gettingMatrixValues(excelSuiteFileName,sheetName));
+            }
 
-    }
+        }
+
     @DataProvider(name = "AdminFlows")
     public Object[][] dataFeeder() throws IOException, InvalidFormatException {
         //This method will read the admin suite

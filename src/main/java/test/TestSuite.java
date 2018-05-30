@@ -5,6 +5,7 @@ import help.ExcelReader;
 import help.WebDriverFactory;
 import io.appium.java_client.AppiumDriver;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -16,17 +17,20 @@ public class TestSuite {
     CapabilitiesSetUp capabilities = new CapabilitiesSetUp();
     DesiredCapabilities caps = new DesiredCapabilities();
     AppiumDriver appiumDriver;
-    WebDriverFactory driverFactory = new WebDriverFactory();
+    AppiumDriver driver;
     ExcelReader no;
     @Test(dataProvider = "AdminFlows")
     public void run(String platformName, String tcName, String excelSuiteFileName, String sheetName){
     //We need to start with the SetUp annotations
         caps = capabilities.setUpCapabilirties(platformName);
-        appiumDriver = driverFactory.getDriver(caps, platformName);
-        if (appiumDriver != null){
-            no.stepsReader(no.gettingMatrixValues(excelSuiteFileName,sheetName));
-            }
+        driver = WebDriverFactory.getDriver(caps, platformName);
+        if (driver != null) {
+            //no.stepsReader(no.gettingMatrixValues(excelSuiteFileName, sheetName));
 
+            driver.findElement(By.id("Allow")).click();
+            driver.findElement(By.xpath("//XCUIElementTypeTextField[@type='XCUIElementTypeTextField']")).sendKeys("test");
+            driver.findElement(By.name("CONTINUE")).click();
+        }
         }
 
     @DataProvider(name = "AdminFlows")

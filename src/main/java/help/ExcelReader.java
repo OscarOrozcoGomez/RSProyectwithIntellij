@@ -71,9 +71,4 @@ public class ExcelReader extends PathsObtainer {
         }
         return null;
     }
-
-    public static void main(String[] args) {
-        ExcelReader nono = new ExcelReader();
-        nono.stepsReader(nono.gettingMatrixValues("AdminMatrix","TC001"));
-    }
 }

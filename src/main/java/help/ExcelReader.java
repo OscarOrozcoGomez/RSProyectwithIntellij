@@ -12,12 +12,12 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import utilities.PathsObtainer;
 
 public class ExcelReader extends PathsObtainer {
-    static XSSFWorkbook book;
-    static XSSFSheet sheet;
-    static XSSFRow row;
-    static XSSFCell cell;
-    String[][] data;
-    String nojan;
+    private static XSSFWorkbook book;
+    private static XSSFSheet sheet;
+    private static XSSFRow row;
+    private static XSSFCell cell;
+    private String[][] data;
+    TestCaseParameters testCaseParameters;
 
     public String getCellDataByIndex(String excelSuiteName, String sheetName, int rownumber, int columnNumber) {
         try {
@@ -34,7 +34,7 @@ public class ExcelReader extends PathsObtainer {
         return cell.getStringCellValue();
     }
 
-    public Object[][] gettingMatrixValues(String excelSuiteName, String sheetName) {
+    public Object[][] gettingMatrixValues(String excelSuiteName, String sheetName) throws FileNotFoundException{
         try {
             FileInputStream fis = new FileInputStream(getMatrixPath(excelSuiteName));
             book = new XSSFWorkbook(fis);
@@ -54,8 +54,6 @@ public class ExcelReader extends PathsObtainer {
                     data[i][j] = getCellDataByIndex(excelSuiteName, sheetName, i, j);
                 }
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -65,10 +63,15 @@ public class ExcelReader extends PathsObtainer {
     public String stepsReader(Object[][] testCaseArray) {
         for (Object[] nombre: testCaseArray) {
             for (Object nnnn:nombre) {
-                System.out.print(nnnn + " ");
+
             }
             System.out.println(" ");
         }
         return null;
     }
+
+    /*public static void main(String[] args) {
+        ExcelReader nono = new ExcelReader();
+        nono.stepsReader(nono.gettingMatrixValues("AdminMatrix","TC001-A"));
+    }*/
 }

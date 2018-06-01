@@ -14,6 +14,7 @@ import io.appium.java_client.remote.AutomationName;
 import io.appium.java_client.remote.MobileCapabilityType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
@@ -22,8 +23,8 @@ import org.testng.annotations.Test;
 
 
 public class PruebaDeDriver {
-    IOSDriver driver;
-
+    AppiumDriver<?> driver;
+    WebElement allowButton;
     @BeforeTest
     public void setUP() throws MalformedURLException {
         DesiredCapabilities d = new DesiredCapabilities();
@@ -36,13 +37,13 @@ public class PruebaDeDriver {
         d.setCapability(MobileCapabilityType.APP, "/Users/oscar orozco/Library/Developer/Xcode/DerivedData/Rousesales-fjsnynnpcpexfxahpccrdeeghcef/Build/Products/Develop-iphonesimulator/Rouse Sales.app");
         driver = new IOSDriver(new URL("http://localhost:4723/wd/hub"), d);
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+        allowButton = driver.findElementById("Allow");
     }
 
     @Test
     public void test() {
         try {
-            System.out.println(driver);
-            driver.findElementById("Allow").click();
+            allowButton.click();
             driver.findElementByXPath("//XCUIElementTypeTextField[@type='XCUIElementTypeTextField']").sendKeys("test");
             driver.findElementByName(("CONTINUE")).click();
         }catch (ElementNotFoundException e){

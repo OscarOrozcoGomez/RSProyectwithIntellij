@@ -32,7 +32,6 @@ public class TestSuite {
             driver = WebDriverFactory.getDriver(caps, platformName);
             for(Object[] steps :excelReader.gettingMatrixValues(excelSuiteFileName, sheetName)){
                 stepExecuter = new StepExecuter(driver);
-                driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
                 stepExecuter.stepReceiver(steps[0].toString(), steps[1].toString(), steps[2].toString(),steps[3].toString(), steps[4].toString());
                 /*for(Object stepText: steps){
                     stepExecuter = new StepExecuter(driver);

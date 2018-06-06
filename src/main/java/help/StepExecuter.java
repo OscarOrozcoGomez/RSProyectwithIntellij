@@ -1,16 +1,14 @@
 package help;
 
-import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.ios.IOSDriver;
-import io.appium.java_client.ios.IOSElement;
-import org.openqa.selenium.WebDriver;
 
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 public class StepExecuter extends AppiumFunctions{
     private AppiumDriver driver;
     private String actualResult;
+
     public StepExecuter(AppiumDriver driver){
         super(driver);
         this.driver = driver;

@@ -4,6 +4,8 @@ import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.concurrent.TimeUnit;
+
 public class AppiumFunctions extends ObjectIdentifier {
     private AppiumDriver driver;
     private WebElement element;
@@ -14,14 +16,25 @@ public class AppiumFunctions extends ObjectIdentifier {
         this.driver = driver;
     }
 
-    public boolean clickOnElemtent(String identifier, String identifierValue) {
+    public boolean clickOnElemtent(String byObject, String byObjectValue) {
         try {
-            element = driver.findElement(defineTypeOfIdentifier(identifier, identifierValue));
+            element = driver.findElement(defineTypeOfIdentifier(byObject, byObjectValue));
             element.click();
-            flag = true;
+            return true;
         } catch (ElementNotFoundException notFound) {
             errorText = notFound.toString();
         }
-        return flag;
+        return false;
+    }
+
+    public boolean typeTextIntoTextField(String byObject, String byObjectValue, String parameter) {
+        try {
+            element = driver.findElement(defineTypeOfIdentifier(byObject, byObjectValue));
+            element.sendKeys(parameter);
+            return true;
+        } catch (ElementNotFoundException notFound) {
+            errorText = notFound.toString();
+        }
+        return false;
     }
 }

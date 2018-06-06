@@ -14,12 +14,12 @@ import help.StepExecuter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class TestSuite {
     String globalValue;
     CapabilitiesSetUp capabilities = new CapabilitiesSetUp();
     DesiredCapabilities caps = new DesiredCapabilities();
-    AppiumDriver appiumDriver;
     AppiumDriver driver;
     ExcelReader excelReader = new ExcelReader();
     StepExecuter stepExecuter;
@@ -31,21 +31,24 @@ public class TestSuite {
             caps = capabilities.setUpCapabilirties(platformName);
             driver = WebDriverFactory.getDriver(caps, platformName);
             for(Object[] steps :excelReader.gettingMatrixValues(excelSuiteFileName, sheetName)){
-                for(Object stepText: steps){
+                stepExecuter = new StepExecuter(driver);
+                driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+                stepExecuter.stepReceiver(steps[0].toString(), steps[1].toString(), steps[2].toString(),steps[3].toString(), steps[4].toString());
+                /*for(Object stepText: steps){
                     stepExecuter = new StepExecuter(driver);
-                    stepExecuter.stepReceiver(steps[0].toString(), steps[1].toString(), steps[2].toString());
-                }
+                    stepExecuter.stepReceiver(stepText[0].toString(), steps[1].toString(), steps[2].toString(),steps[3].toString(), steps[4].toString());
+                }*/
             }
-        }catch (FileNotFoundException err){
+        }/*catch (FileNotFoundException err){
             globalValue = err.getMessage();
-        } catch (Exception e) {
+        } */catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
     @DataProvider(name = "AdminFlows")
-    public Object[][] dataFeeder() throws IOException, InvalidFormatException {
+    public Object[][] dataFeeder() {
         //This method will read the admin suite
         return excelReader.gettingMatrixValues("AdminMatrix", "Matrix");
     }

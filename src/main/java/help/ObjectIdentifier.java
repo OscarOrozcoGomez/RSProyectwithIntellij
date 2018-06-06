@@ -22,13 +22,21 @@ public class ObjectIdentifier {
         return By.className(classValue);
     }
 
-    protected By defineTypeOfIdentifier(String identifierType, String identifierValue) {
+    public By tagName(String tagName) {
+        return By.tagName(tagName);
+    }
+
+    public By defineTypeOfIdentifier(String identifierType, String identifierValue) {
         try {
             switch (identifierType) {
                 case "Xpath":
                     return xpath(identifierValue);
                 case "Id":
                     return id(identifierValue);
+                case "name":
+                    return name(identifierValue);
+                case "tag":
+                    return tagName(identifierValue);
                 default:
                     return null;
             }

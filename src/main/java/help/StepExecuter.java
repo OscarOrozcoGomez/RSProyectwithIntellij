@@ -16,17 +16,17 @@ public class StepExecuter extends AppiumFunctions{
         this.driver = driver;
     }
     //public boolean stepReceiver(String cellValue, String typeOfObject, String objectValue) throws Exception {
-    public boolean stepReceiver(String cellValue, String typeOfObject, String objectValue) throws Exception {
+    public boolean stepReceiver(String keyWord, String byObject, String byObjectValue, String parameter, String testCaseStep) {
         try {
-            switch (cellValue){
-                case "Click": return clickOnElemtent(typeOfObject, objectValue);
-                case "SendText": ;
-                    return true;
+            switch (keyWord){
+                case "Click": return clickOnElemtent(byObject, byObjectValue);
+                case "SendText": return typeTextIntoTextField(byObject, byObjectValue, parameter);
+                default: return false;
             }
         }catch (Exception e){
-            throw new Exception("The string received was not found.");
+            System.out.println(e.getMessage());
         }
-        return true;
+        return false;
     }
 
 }

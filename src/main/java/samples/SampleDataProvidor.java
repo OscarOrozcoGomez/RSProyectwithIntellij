@@ -58,13 +58,13 @@ public class SampleDataProvidor extends ExtendtReports{
     }*/
 
     @DataProvider(name = "Alimentador")
-    public Object[][] dataFeeder() throws IOException, InvalidFormatException {
+    public Object[][] dataFeeder() {
         ClasePruebaLeerExcel no = new ClasePruebaLeerExcel();
         return no.gettingMatrixValues("matriz");
     }
 
     public List<String> returnCellValues(String sheetName) throws IOException, InvalidFormatException {        // Getting the Sheet at index zero
-       List<String> excelMatrixValues = new ArrayList<String>();;
+       List<String> excelMatrixValues = new ArrayList<String>();
         Workbook workbook = WorkbookFactory.create(new File("C:/Users/Toshiba/Documents/Eclipse/com.rousesrvices/src/main/java/libro.xlsx"));
         Sheet sheet = workbook.getSheet(sheetName);
 
@@ -90,7 +90,7 @@ public class SampleDataProvidor extends ExtendtReports{
         }
     return excelMatrixValues;
     }
-    public void returnCellValuess(String sheetName) throws IOException, InvalidFormatException {
+    public void returnCellValuess(String sheetName) throws IOException {
         FileInputStream fis = new FileInputStream("C:/Users/Toshiba/Documents/Eclipse/com.rousesrvices/src/main/java/libro.xlsx");
         XSSFWorkbook myWorkBook = new XSSFWorkbook(fis);
         XSSFSheet mySheet = myWorkBook.getSheet(sheetName);

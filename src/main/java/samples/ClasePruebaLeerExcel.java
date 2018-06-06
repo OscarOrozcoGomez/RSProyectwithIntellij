@@ -51,7 +51,7 @@ public class ClasePruebaLeerExcel {
                     System.out.print(getCellDataByIndex("matriz", i,j) + "//");
                     data[i][j] = getCellDataByIndex("matriz", i,j);
                 }
-                System.out.println("");
+                System.out.println();
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

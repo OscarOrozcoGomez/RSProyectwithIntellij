@@ -17,7 +17,6 @@ public class ExcelReader extends PathsObtainer {
     private static XSSFRow row;
     private static XSSFCell cell;
     private String[][] data;
-    TestCaseParameters testCaseParameters;
 
     public String getCellDataByIndex(String excelSuiteName, String sheetName, int rownumber, int columnNumber) {
         try {
@@ -34,7 +33,7 @@ public class ExcelReader extends PathsObtainer {
         return cell.getStringCellValue();
     }
 
-    public Object[][] gettingMatrixValues(String excelSuiteName, String sheetName) throws FileNotFoundException{
+    public Object[][] gettingMatrixValues(String excelSuiteName, String sheetName) {
         try {
             FileInputStream fis = new FileInputStream(getMatrixPath(excelSuiteName));
             book = new XSSFWorkbook(fis);

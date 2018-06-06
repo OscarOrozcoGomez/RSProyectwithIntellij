@@ -23,8 +23,7 @@ import org.testng.annotations.Test;
 
 
 public class PruebaDeDriver {
-    AppiumDriver<?> driver;
-    WebElement allowButton;
+    IOSDriver<IOSElement> driver;
     @BeforeTest
     public void setUP() throws MalformedURLException {
         DesiredCapabilities d = new DesiredCapabilities();
@@ -35,21 +34,20 @@ public class PruebaDeDriver {
         //d.setCapability(MobileCapabilityType.UDID, "A51FAB85-29AE-4069-8C62-E5471E593014");
         d.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.IOS_XCUI_TEST);
         d.setCapability(MobileCapabilityType.APP, "/Users/oscar orozco/Library/Developer/Xcode/DerivedData/Rousesales-fjsnynnpcpexfxahpccrdeeghcef/Build/Products/Develop-iphonesimulator/Rouse Sales.app");
-        driver = new IOSDriver(new URL("http://localhost:4723/wd/hub"), d);
+        driver = new IOSDriver<IOSElement>(new URL("http://localhost:4723/wd/hub"), d);
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-        allowButton = driver.findElementById("Allow");
+
     }
 
     @Test
     public void test() {
         try {
-            allowButton.click();
-            driver.findElementByXPath("//XCUIElementTypeTextField[@type='XCUIElementTypeTextField']").sendKeys("test");
-            driver.findElementByName(("CONTINUE")).click();
+            driver.findElementById("Allow").click();
+            driver.findElementByXPath("//XCUIElementTypeTextField").sendKeys("test");
+            driver.findElementByName(("Continue")).click();
         }catch (ElementNotFoundException e){
             System.out.println(e);
         }
-        //driver.findElement(By.id("Allow")).click();
 
     }
 

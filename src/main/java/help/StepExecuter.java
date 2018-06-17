@@ -1,24 +1,19 @@
 package help;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileDriver;
+import io.appium.java_client.MobileElement;
 
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 public class StepExecuter extends AppiumFunctions{
-    private AppiumDriver driver;
-    private String actualResult;
-
-    public StepExecuter(AppiumDriver driver){
-        super(driver);
-        this.driver = driver;
-    }
     //public boolean stepReceiver(String cellValue, String typeOfObject, String objectValue) throws Exception {
-    public boolean stepReceiver(String keyWord, String byObject, String byObjectValue, String parameter, String testCaseStep) {
+    public boolean stepReceiver(AppiumDriver<MobileElement> driver, String keyWord, String byObject, String byObjectValue, String parameter, String testCaseStep) {
         try {
             switch (keyWord){
-                case "Click": return clickOnElemtent(byObject, byObjectValue);
-                case "SendText": return typeTextIntoTextField(byObject, byObjectValue, parameter);
+                case "Click": return clickOnElemtent(driver, byObject, byObjectValue);
+                case "SendText": return typeTextIntoTextField(driver, byObject, byObjectValue, parameter);
                 default: return false;
             }
         }catch (Exception e){

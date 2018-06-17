@@ -53,6 +53,7 @@ public class CapabilitiesSetUp extends PathsObtainer {
             capa.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.IOS_XCUI_TEST);
             capa.setCapability(MobileCapabilityType.UDID, "A51FAB85-29AE-4069-8C62-E5471E593014");
             capa.setCapability(MobileCapabilityType.APP, appPath);
+            capa.setCapability("newCommandTimeout", 10);
         } catch (Exception e) {
             errorinFile = e.getMessage();
         }
@@ -64,6 +65,7 @@ public class CapabilitiesSetUp extends PathsObtainer {
             setAndroidCapabilities();
             capa.setCapability(MobileCapabilityType.DEVICE_NAME, devName);
             capa.setCapability(MobileCapabilityType.APP, appPath);
+            capa.setCapability("newCommandTimeout", 10);
         } catch (NullPointerException e) {
             errorinFile = e.getMessage();
         }

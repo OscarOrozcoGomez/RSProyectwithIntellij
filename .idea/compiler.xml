@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="RouseAutomationFramework" target="7" />
+      <module name="RouseAutomationFramework" target="9" />
     </bytecodeTargetLevel>
   </component>
 </project>

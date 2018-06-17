@@ -1,43 +1,45 @@
 package help;
 
-import com.gargoylesoftware.htmlunit.ElementNotFoundException;
-import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.WebElement;
 
-import java.util.concurrent.TimeUnit;
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileDriver;
+import io.appium.java_client.MobileElement;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.FluentWait;
+
+import java.time.Duration;
+import java.util.NoSuchElementException;
+import java.util.function.Function;
 
 public class AppiumFunctions extends ObjectIdentifier {
-    private AppiumDriver driver;
-    private WebElement element;
+    public MobileElement element;
     private String errorText;
     private boolean flag = false;
-    public AppiumFunctions(AppiumDriver driver) {
-        this.driver = driver;
-    }
 
-    public boolean clickOnElemtent(String byObject, String byObjectValue) {
-        try {
-            driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS);
-            element = driver.findElement(defineTypeOfIdentifier(byObject, byObjectValue));
-            element.click();
-            return true;
-        } catch (ElementNotFoundException notFound) {
-            errorText = notFound.toString();
-        }
+    public boolean clickOnElemtent(AppiumDriver<MobileElement> driver, String byObject, String byObjectValue){
+        FluentWait<AppiumDriver<MobileElement>> wait = new FluentWait<>(driver)
+                .withTimeout(Duration.ofSeconds(30))
+                .pollingEvery(Duration.ofSeconds(2))
+                .ignoring(NoSuchElementException.class);
+         element = wait.until(new Function<MobileDriver, MobileElement>() {
+            @Override
+            public MobileElement apply(MobileDriver driver) {
+                System.out.print("si jala");
+                return (MobileElement) driver.findElement(By.id("et_auth_code"));
+            }
+        });
+            if(element.isDisplayed()){
+                element.sendKeys("Tets");
+                return true;
+            }
         return false;
     }
 
-    public boolean typeTextIntoTextField(String byObject, String byObjectValue, String parameter) {
-        try {
-            Thread.sleep(2000);
-            element = driver.findElement(defineTypeOfIdentifier(byObject, byObjectValue));
-            element.sendKeys(parameter);
-            return true;
-        } catch (ElementNotFoundException notFound) {
-            errorText = notFound.toString();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return false;
+    public boolean typeTextIntoTextField(MobileDriver driver, String byObject, String byObjectValue, String parameter){
+            if(element.isDisplayed()){
+                element.sendKeys(parameter);
+                return true;
+            }
+            return false;
     }
 }
